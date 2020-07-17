@@ -1,0 +1,5 @@
+---- AUTHORIZED USER ONLY ----
+
+admin username: admin@toilet.org
+password: P@ssw0rd
+secretkey: 12345678910

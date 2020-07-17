@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+{% autoescape false %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">-->
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+<!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    {% block style %}
+    {% endblock %}
+
+</head>
+
+
+<body>
+{% block navbar %}
+    {% include 'includes/_navbar.html' %}
+{% endblock %}
+        <table class="table table-striped" id="myTable">
+            <thead>
+                <tr class="header">
+                    <th>Picture</th>
+                    <th>Item Name</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            {% for item in cart_list %}
+                <tr>
+                    <td><img src="../static/img/{{ item['item_image'] }}.png" height="30px" width="30px" style="margin-left:10%;"></td>
+                    <td>{{ item['item_name'] }}</td>
+                    <td>{{ item['item_stock'] }}</td>
+                    <td>{{ item['item_price'] }}</td>
+                    <td>
+
+                        <form action="{{ url_for('deleteItem', item_id = item['item_id']) }}" method="POST">
+                            <input type="submit" value="Delete" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');">
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>Total Price:</td>
+                    <td>{{ total }}</td>
+                    <td>
+                        <a type="submit"  class="btn btn-danger" href="/checkOut" style='background-color:green'>Check Out</a>
+                    </td>
+                </tr>
+        </table>
+
+{% endautoescape %}
+
+
+
+
+
+
+

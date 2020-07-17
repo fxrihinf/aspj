@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+{% autoescape false %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">-->
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+<!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    {% block style %}
+    {% endblock %}
+
+</head>
+
+
+<body>
+{% block navbar %}
+    {% include 'includes/_navbar.html' %}
+{% endblock %}
+        <table class="table table-striped" id="myTable">
+            <thead>
+                <tr class="header">
+                    <th>Picture</th>
+                    <th>Item Name</th>
+                    <th>Date</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+
+                </tr>
+            </thead>
+            {% for item in orderCart %}
+                <tr>
+                    <td><img src="../static/img/{{ item['item_image'] }}.png" height="30px" width="30px" style="margin-left:10%;"></td>
+                    <td>{{ item['item_name'] }}</td>
+                    <td>{{ item['date'] }}</td>
+                    <td>{{ item['item_quantity'] }}</td>
+                    <td>{{ item['item_price'] }}</td>
+
+                </tr>
+            {% endfor %}
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Total Price:</td>
+                    <td>{{ total }}</td>
+
+                </tr>
+        </table>
+
+{% endautoescape %}
+
+
+
+
+
+
+

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+{% autoescape false %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+     {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for i in messages %}
+                <script>alert('{{ i }}');</script>
+            {% endfor %}
+        {% endif %}
+     {% endwith %}
+{% block style %}
+
+{% endblock %}
+</head>
+<body>
+  {% block navbar %}
+        {% include 'includes/_navbar.html' %}
+    {% endblock %}
+    <div class="container-fluid">
+    <div class="row">
+    <div class="container">
+
+      <h2>Welcome to the toilet store</h2>
+        {% if session['user'] %}
+
+
+
+    <h3> You are logged in as {{session['user']}}. </h3>
+
+
+    {% endif %}
+      <form method="GET">
+      <input type="text" name="q"
+             placeholder="Search query" autocomplete="off" />
+      <input type="submit" value="Filter comments" />
+    </form>
+
+    {% if not search_query %}
+      <h3>Showing all items:</h3>
+    {% else %}
+      <h3>Showing results containing "{{ search_query }}":</h3>
+    {% endif %}
+
+    {% for item in items_list %}
+
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#{{ item[1] }}" style="width:300 px;margin:10px;border: 1px outset black; background-color:white; color:black;"><img src="../static/img/{{ item[1] }}.png" height="200px" width="200px" style="border: 1px outset black;"> <span style="display:block">{{ item[2] }}</span> <span style="display:block">${{ "{:.2f}".format(item[4]) }}</span></button>
+
+      <!-- Modal -->
+      <div class="modal fade" id="{{ item[1] }}" role="dialog" >
+        <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+
+                <img src="../static/img/{{ item[1] }}.png" height="300px" width="300px" style="margin-left:10%;">
+                <p>Price:${{ "{:.2f}".format(item[4]) }}</p>
+                <p>Description:</p>
+                <p>{{ item[3] }}</p>
+
+            </div>
+              <button type="button" class="btn btn-default" style="border:1px outset black">Add to cart</button>
+<!--            <div class="modal-footer">-->
+                  <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#lol{{ item[0] }}">Reviews</button>
+                  <div id="lol{{ item[0] }}" class="collapse" style="padding:20px;">
+                      <form action="/" method="POST">
+                        <input type="text" style="width:90%;" name="comment" placeholder="Comment" autocomplete="off"/>
+                          <input value = "{{ item[0] }}" type="hidden" name="item_idd">
+                        <input type="submit" value="Submit" style="background-color:white;broder:1px outset black;" />
+                      </form>
+                      {% for i in review_list %}
+                      {% if i[1] == item[0] %}
+                      <div style="">
+                      {{ i[2] }}:<br>
+                      {{ i[3] }}
+                      </div>
+                      {% endif %}
+                      {% endfor %}
+
+                </div>
+
+<!--            </div>-->
+          </div>
+
+        </div>
+      </div>
+    {% endfor %}
+
+</div>
+    </div>
+</div>
+
+{ {% block scripts %}
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    {% endblock %}
+    {% block functions %}
+    {% endblock %}
+</body>
+</html>
+{% endautoescape %}

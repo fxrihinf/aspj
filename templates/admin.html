@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Surprise !Store - store{% endblock %}
+{% block style %}
+<style>
+    div.sidenav {width: 200px; background-color: #d6d6d7; padding-bottom: 20px;}
+    div.sidenav >  a.active{color: blue}
+    ul.side-nav {list-style-type: none; padding-top: 50px; font-size: 20px}
+    ul.side-nav > li {padding-top: 5px}
+    div.item {margin: 20px 20px; padding: 10px 30px; border: 1px #c2c2c238 solid; border-radius: 5px; background-color: #c2c2c238;}
+    div.item img {width: 150px; height: 150px; border: solid grey 1px}
+    .pageIndex{text-align: right; font-size: 20px; margin-top: 5px}
+    active {text-decoration: underline}
+    div.shop {margin-left: 30px; padding-top: 10px}
+    div.item.item-discount{margin: 20px 20px; padding: 10px 30px; border: 1px #c2c2c238 solid; border-radius: 5px; background-color: #fff36596}
+    span.slashed{text-decoration:line-through}
+    span.discount{color: red}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="column" style="width: 200px;">
+    <h1>Welcome Admin!</h1>
+
+</div>
+
+{% endblock %}
+
+{% block functions %}
+<script></script>
+{% endblock %}
+</div>
