@@ -676,6 +676,22 @@ def account(id: int):
     # return render_template('account.html',id = session['id'])
     # return redirect(url_for('login'))
 
+@app.route('/cust_details/<int:cust_id>', methods=['GET', 'POST'])
+def cust_details(cust_id: int):
+    statement = text('SELECT * FROM users WHERE id =' + str(cust_id))
+    result = db.engine.execute(statement).fetchone()
+    if result == None:
+        abort(401)
+    else:
+        print(result)
+        id = result[0]
+        name = result[1] + result[2]
+        email = result[3]
+        password = result[4]
+        return render_template('info.html',id=id,name=name,email=email,password=password)
+@app.errorhandler(401)
+def page_not_foundd(e):
+    return redirect('/')
 
 if __name__ == '__main__':
         app.run(debug=True)
